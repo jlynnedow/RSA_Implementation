@@ -1,30 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-int power(int a, int b){
-int res = a;
-for(int i = 0; i < b; i++){
-      res *= a;
-}
-     return res;
-  }
-
-//euclidean algorithm
-int gcd(int a, int b){
-     if(a < b){
-         a = b ^ a;
-         b = a ^ b;
-         a = b ^ a;
-     }
-     int r = a % b;
-     if(r == 0) return b;
-     return gcd(b, r);
- }
+#include "tools.h"
 
  int getPublicKey(int p, int q){
      int t = (p-1) * (q-1);
      int e = 0;
-     for(int i = 2; i <= t; i++){
+     for(int i = 2; i < t; i++){
          if(gcd(i, t) == 1){
              e = i;
              break;
@@ -48,18 +29,19 @@ int gcd(int a, int b){
  }
 
  int encrypt(int message, int e, int n){
-     return power(message, e) % n;
+	 return power(message, e) % n;
  }
 
  int decrypt(int encrypted, int d, int n){
      return power(encrypted, d) % n;
  }
 
- int main(){
-     int p = 7;
-     int q = 11;
+ int main(int argc, char * argv[]){
+     int p = atoi(argv[1]);
+     int q = atoi(argv[2]);
      int n = p * q;
-     int message = 44;
+	 char buff[20];
+     int message = fgets(buff, 20, stdin)
      int pub = getPublicKey(p, q);
      int priv = getPrivateKey(p, q, pub);
      int enc = encrypt(message, pub, n);

@@ -2,11 +2,11 @@ CC = gcc
 CFLAGS = -Wall -std=c18 -ggdb
 LDFLAGS = -lm
 
-test: isPrime
-	./isPrime
+test: rsa input.txt
+	./rsa <input.txt
 
-isPrime: isPrime.c
-	$(CC) $(CFLAGS) -o isPrime isPrime.c ${LDFLAGS}
+rsa: rsa.c tools.c tools.h rsa.h
+	$(CC) $(CFLAGS) -o rsa rsa.c tools.c
 
 clean:
-	-rm isPrime
+	-rm rsa
